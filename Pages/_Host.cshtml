@@ -1,0 +1,84 @@
+﻿@page "/"
+@namespace BlazorGamepad.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App1</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+</head>
+<body>
+    <app>
+        <component type="typeof(App)" render-mode="ServerPrerendered" />
+    </app>
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.server.js"></script>
+    @*<script src="~/js/app.js"></script>*@
+    <script>
+        const connection = new signalR.HubConnectionBuilder().withUrl("gamepad").build();
+
+        const update = () => {
+            const gamepads = navigator.getGamepads();
+            if (gamepads === null) return;
+
+            let gamepadObjects = [];
+
+            for (var i = 0; i < gamepads.length; i++) {
+                let gp = gamepads[i];
+
+                if (gp === null) continue;
+
+                let gamepadButtons = [];
+                for (var j = 0; j < gp.buttons.length; j++) {
+                    let button = gp.buttons[j];
+
+                    gamepadButtons.push({
+                        Value: button.value,
+                        Pressed: button.pressed
+                    });
+                }
+                
+                gamepadObjects.push({
+                    Axes: gp.axes,
+                    Buttons: gamepadButtons,
+                    Connected: gp.connected,
+                    Id: gp.id,
+                    Index: gp.index,
+                    Mapping: gp.mapping,
+                    Timestamp: gp.timestamp
+                });
+            }
+            connection.invoke('UpdateJsonAsync', gamepadObjects);
+        }
+        function tick(timestamp) {
+            const rafId = requestAnimationFrame(tick);
+            update();
+        }
+
+        connection
+            .start()
+            .then(() => tick())
+            .catch(err => document.write(err));
+    </script>
+</body>
+</html>
