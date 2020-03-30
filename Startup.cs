@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlazorGamepad.Services;
+using Microsoft.AspNetCore.Components.Server.Circuits;
 
 namespace BlazorGamepad {
     public class Startup {
@@ -22,6 +23,7 @@ namespace BlazorGamepad {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services) {
+            services.AddSingleton<CircuitHandler, TrackingCircuitHandler>();
             services.AddSignalR();
             services.AddRazorPages();
             services.AddServerSideBlazor();

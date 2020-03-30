@@ -1,8 +1,11 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.SignalR.Client
 @using BlazorGamepad.Services
+@using Microsoft.AspNetCore.Components.Server.Circuits
 @inject NavigationManager NavigationManager
+@inject CircuitHandler CircuitHandler
 <h3>Gamepads</h3>
+<div>@TrackingCircuitHandler.ConnectedCircuits.ToString()</div>
 @foreach (var gamepad in Gamepads) {
     <div style="border:double 1px black;margin-bottom:.5em;width:auto;">
         @gamepad.Id
@@ -51,12 +54,16 @@
     GamepadServiceClient? _gamepadServiceClient = null;
     List<Gamepad> Gamepads { get; set; } = new List<Gamepad>();
 
+    private TrackingCircuitHandler TrackingCircuitHandler { get; set; }
+
     protected override void OnInitialized() {
+        TrackingCircuitHandler = CircuitHandler as TrackingCircuitHandler;
+
         _gamepadServiceClient = new GamepadServiceClient(
-            new HubConnectionBuilder()
-            .WithUrl(NavigationManager.ToAbsoluteUri(GamepadServiceHub.ChannelName))
-            .Build()
-        );
+        new HubConnectionBuilder()
+        .WithUrl(NavigationManager.ToAbsoluteUri(GamepadServiceHub.ChannelName))
+        .Build()
+    );
 
         _gamepadServiceClient.OnUpdate += OnGamepadUpdate;
     }
