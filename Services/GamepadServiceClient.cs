@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.SignalR.Client;
 
 namespace BlazorGamepad.Services {
 
+    public delegate void GamepadClientEventHandler(object sender, Gamepad[] gamepads);
+    public delegate void GamepadClientJsonEventHandler(object sender, JsonElement[] gamepadElements);
+
     public class GamepadServiceClient : IGamePadService {
 
         private readonly HubConnection _hubConnection;
@@ -30,8 +33,10 @@ namespace BlazorGamepad.Services {
         }
 
         // Provide a delegate to call when the event is received from the hub
-        public EventHandler<Gamepad[]> OnUpdate { get; set; }
-        public EventHandler<JsonElement[]> OnUpdateJson { get; set; }
+        //public EventHandler<Gamepad[]> OnUpdate { get; set; }
+        //public EventHandler<JsonElement[]> OnUpdateJson { get; set; }
+        public GamepadClientEventHandler OnUpdate { get; set; }
+        public GamepadClientJsonEventHandler OnUpdateJson { get; set; }
         #endregion
     }
 }

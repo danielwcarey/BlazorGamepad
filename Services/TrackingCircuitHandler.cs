@@ -11,6 +11,9 @@ namespace BlazorGamepad.Services {
 
         public override Task OnConnectionUpAsync(Circuit circuit,
             CancellationToken cancellationToken) {
+
+            System.Diagnostics.Debug.Write($"Up: {circuit.Id}");
+
             _circuits.Add(circuit);
 
             return Task.CompletedTask;
@@ -18,7 +21,10 @@ namespace BlazorGamepad.Services {
 
         public override Task OnConnectionDownAsync(Circuit circuit,
             CancellationToken cancellationToken) {
-            _circuits.Remove(circuit);
+
+            System.Diagnostics.Debug.Write($"Down: {circuit.Id}");
+
+            _circuits.Remove(circuit);           
 
             return Task.CompletedTask;
         }

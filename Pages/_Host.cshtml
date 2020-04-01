@@ -59,6 +59,7 @@
                 }
                 
                 gamepadObjects.push({
+                    ConnectionId: connection.connectionId,
                     Axes: gp.axes,
                     Buttons: gamepadButtons,
                     Connected: gp.connected,
@@ -68,6 +69,7 @@
                     Timestamp: gp.timestamp
                 });
             }
+            //console.log(connection);
             connection.invoke('UpdateJsonAsync', gamepadObjects);
         }
         function tick(timestamp) {

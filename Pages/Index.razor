@@ -5,10 +5,10 @@
 @inject NavigationManager NavigationManager
 @inject CircuitHandler CircuitHandler
 <h3>Gamepads</h3>
-<div>@TrackingCircuitHandler.ConnectedCircuits.ToString()</div>
 @foreach (var gamepad in Gamepads) {
     <div style="border:double 1px black;margin-bottom:.5em;width:auto;">
         @gamepad.Id
+        <div>@gamepad.ConnectionId</div>
         @if (gamepad.Buttons.Length > 0) {
             <table style="border:1px double gray;margin-left:5em;">
                 <thead>
@@ -69,7 +69,21 @@
     }
 
     void OnGamepadUpdate(object sender, Gamepad[] gamepads) {
-        Gamepads = gamepads.ToList();
+        bool isfound = false;
+        foreach(var gpUpdate in gamepads) {
+            for(var i = 0; i < Gamepads.Count; i++) {
+                if(Gamepads[i].ConnectionId == gpUpdate.ConnectionId &&
+                   Gamepads[i].Id == gpUpdate.Id) {
+                    Gamepads[i] = gpUpdate;
+                    isfound = true;
+                }
+            }
+            if(isfound == false) {
+                Gamepads.Add(gpUpdate);
+            }
+        }
+
+        //Gamepads = gamepads.ToList();
         StateHasChanged();
     }
 

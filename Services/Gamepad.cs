@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace BlazorGamepad.Services {
     public class Gamepad {
+        public string ConnectionId { get; set; }
+
         public double[] Axes { get; set; }
         public GamepadButton[] Buttons { get; set; }
         public bool Connected { get; set; }
