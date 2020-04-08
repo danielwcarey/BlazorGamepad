@@ -23,6 +23,8 @@ namespace BlazorGamepad.Services {
         #region Send events to the hub
         public Task UpdateAsync(Gamepad[] gamepads) => _hubConnection.SendAsync(nameof(IGamePadService.UpdateAsync), gamepads);
         public Task UpdateJsonAsync(JsonElement[] gamepadElements) => _hubConnection.SendAsync(nameof(IGamePadService.UpdateJsonAsync), gamepadElements);
+        public Task AddConnectionAsync(string connectionId) => _hubConnection.SendAsync(nameof(IGamePadService.AddConnectionAsync), connectionId);
+        public Task RemoveConnectionAsync(string connectionId) => _hubConnection.SendAsync(nameof(IGamePadService.RemoveConnectionAsync), connectionId);
         #endregion
 
         #region Receive events from the hub
@@ -30,6 +32,8 @@ namespace BlazorGamepad.Services {
         private void InitEvents() {
             _hubConnection.On<Gamepad[]>(nameof(IGamePadService.UpdateAsync), (gamepads) => OnUpdate?.Invoke(this, gamepads));
             _hubConnection.On<JsonElement[]>(nameof(IGamePadService.UpdateJsonAsync), (gamepadElements) => OnUpdateJson?.Invoke(this, gamepadElements));
+            _hubConnection.On<string>(nameof(IGamePadService.AddConnectionAsync), (connectionId) => OnAddConnection?.Invoke(this, connectionId));
+            _hubConnection.On<string>(nameof(IGamePadService.RemoveConnectionAsync), (connectionId) => OnRemoveConnection?.Invoke(this, connectionId));
         }
 
         // Provide a delegate to call when the event is received from the hub
@@ -37,6 +41,8 @@ namespace BlazorGamepad.Services {
         //public EventHandler<JsonElement[]> OnUpdateJson { get; set; }
         public GamepadClientEventHandler OnUpdate { get; set; }
         public GamepadClientJsonEventHandler OnUpdateJson { get; set; }
+        public EventHandler<string> OnAddConnection { get; set; }
+        public EventHandler<string> OnRemoveConnection { get; set; }
         #endregion
     }
 }

@@ -8,13 +8,22 @@ using System.Threading.Tasks;
 namespace BlazorGamepad.Services {
     public class TrackingCircuitHandler : CircuitHandler {
         private HashSet<Circuit> _circuits = new HashSet<Circuit>();
+        private readonly IGamePadService _gamePadService;
+
+        //public TrackingCircuitHandler(IGamePadService gamePadService) {
+        //    _gamePadService = gamePadService;
+        //}
+        public TrackingCircuitHandler() {
+        }
 
         public override Task OnConnectionUpAsync(Circuit circuit,
             CancellationToken cancellationToken) {
 
+#if DEBUG
             System.Diagnostics.Debug.Write($"Up: {circuit.Id}");
-
+#endif
             _circuits.Add(circuit);
+            //_gamePadService.AddConnectionAsync(circuit.Id);
 
             return Task.CompletedTask;
         }
@@ -22,9 +31,11 @@ namespace BlazorGamepad.Services {
         public override Task OnConnectionDownAsync(Circuit circuit,
             CancellationToken cancellationToken) {
 
+#if DEBUG
             System.Diagnostics.Debug.Write($"Down: {circuit.Id}");
-
-            _circuits.Remove(circuit);           
+#endif
+            _circuits.Remove(circuit);
+            //_gamePadService.RemoveConnectionAsync(circuit.Id);
 
             return Task.CompletedTask;
         }

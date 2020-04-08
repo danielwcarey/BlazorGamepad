@@ -24,5 +24,14 @@ namespace BlazorGamepad.Services {
             }
             await UpdateAsync(gamepads.ToArray());
         }
+
+        public async Task AddConnectionAsync(string connectionId) {
+            await Clients.All.AddConnectionAsync(connectionId);
+        }
+
+        public async Task RemoveConnectionAsync(string connectionId) {
+            await Clients.All.RemoveConnectionAsync(connectionId);
+        }
+
     }
 }
