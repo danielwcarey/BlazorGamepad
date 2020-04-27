@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
-namespace BlazorGamepad.Services {
+namespace DanielCarey.Blazor.Gamepad.Sample.Services {
     public class GamepadServiceHub : Hub<IGamePadService> {
         public static string ChannelName = "gamepad";
 

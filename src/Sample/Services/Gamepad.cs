@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorGamepad.Services {
+namespace DanielCarey.Blazor.Gamepad.Sample.Services {
     public class Gamepad {
         public string ConnectionId { get; set; }
 

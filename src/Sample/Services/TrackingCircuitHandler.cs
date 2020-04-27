@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BlazorGamepad.Services {
+namespace DanielCarey.Blazor.Gamepad.Sample.Services {
     public class TrackingCircuitHandler : CircuitHandler {
         private HashSet<Circuit> _circuits = new HashSet<Circuit>();
         private readonly IGamePadService _gamePadService;

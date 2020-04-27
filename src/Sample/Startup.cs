@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BlazorGamepad.Services;
+using DanielCarey.Blazor.Gamepad.Sample.Services;
 using Microsoft.AspNetCore.Components.Server.Circuits;
 
-namespace BlazorGamepad {
+namespace DanielCarey.Blazor.Gamepad.Sample {
     public class Startup {
         public Startup(IConfiguration configuration) {
             Configuration = configuration;

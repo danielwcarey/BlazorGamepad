@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace BlazorGamepad.Services {
+namespace DanielCarey.Blazor.Gamepad.Sample.Services {
     public interface IGamePadService {
         Task UpdateAsync(Gamepad[] gamepads);
         Task UpdateJsonAsync(JsonElement[] gamepadElements);

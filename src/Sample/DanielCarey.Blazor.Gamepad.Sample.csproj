@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>BlazorGamepad</AssemblyName>
+    <AssemblyName>DanielCarey.Blazor.Gamepad.Sample</AssemblyName>
+    <RootNamespace>DanielCarey.Blazor.Gamepad.Sample</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
