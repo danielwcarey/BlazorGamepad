@@ -27,6 +27,8 @@ namespace DanielCarey.Blazor.Gamepad.Sample {
             services.AddSignalR();
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            
+            services.AddGamepadServices(); // TODO: Need to add configuration.
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +48,11 @@ namespace DanielCarey.Blazor.Gamepad.Sample {
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapBlazorHub();
-                endpoints.MapHub<GamepadServiceHub>(GamepadServiceHub.ChannelName);
+                
+                // TODO Need to add gamepad route information
+                endpoints.MapGamepadRoute();
+                //endpoints.MapGamepadRoute(GamepadServiceHub.ChannelName);
+
                 endpoints.MapFallbackToPage("/_Host");
             });
         }
