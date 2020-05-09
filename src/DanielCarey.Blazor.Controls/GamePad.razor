@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.SignalR.Client
+@using DanielCarey.Blazor.Controls.Services
+@inject NavigationManager NavigationManager
+<h3>GamePad</h3>
+<div>@ClientGamepad?.Id</div>
+
+@code {
+
+    [Parameter]
+    public int Index { get; set; } = 0;
+
+    public ClientGamepad? ClientGamepad { get; set; } = null;
+
+    GamepadServiceClient? _gamepadServiceClient = null;
+
+    protected override void OnInitialized() {
+        _gamepadServiceClient = new GamepadServiceClient(
+        new HubConnectionBuilder()
+        .WithUrl(NavigationManager.ToAbsoluteUri(GamepadServiceHub.ChannelName))
+        .Build()
+    );
+
+        _gamepadServiceClient.OnUpdate += OnGamepadUpdate;
+    }
+
+    void OnGamepadUpdate(object sender, ClientGamepad[] gamepads) {
+
+        ClientGamepad = null;
+
+        if (Index >= 0 && Index < gamepads.Length) {
+            ClientGamepad = gamepads[Index];
+        }
+
+        StateHasChanged();
+    }
+}

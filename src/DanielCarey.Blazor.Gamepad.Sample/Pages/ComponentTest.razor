@@ -1,9 +1,17 @@
 ﻿@page "/component"
-
 <h3>ComponentTest</h3>
-
-<GamePad></GamePad>
+<div>
+    @Index
+</div>
+<div>
+    <button @onclick='@(_ => Index--)'>&lt;</button>
+    <button @onclick='@(_ => Index++)'>&gt;</button>
+</div>
+<div>
+    <GamePad Index="@Index"></GamePad>
+</div>
 
 @code {
-
+    [Parameter]
+    public int Index { get; set; } = 0;
 }

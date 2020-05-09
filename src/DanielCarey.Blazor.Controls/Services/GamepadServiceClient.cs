@@ -39,10 +39,10 @@ namespace DanielCarey.Blazor.Controls.Services {
         // Provide a delegate to call when the event is received from the hub
         //public EventHandler<Gamepad[]> OnUpdate { get; set; }
         //public EventHandler<JsonElement[]> OnUpdateJson { get; set; }
-        public GamepadClientEventHandler OnUpdate { get; set; }
-        public GamepadClientJsonEventHandler OnUpdateJson { get; set; }
-        public EventHandler<string> OnAddConnection { get; set; }
-        public EventHandler<string> OnRemoveConnection { get; set; }
+        public GamepadClientEventHandler? OnUpdate { get; set; } = null;
+        public GamepadClientJsonEventHandler? OnUpdateJson { get; set; } = null;
+        public EventHandler<string>? OnAddConnection { get; set; } = null;
+        public EventHandler<string>? OnRemoveConnection { get; set; } = null;
         #endregion
     }
 }

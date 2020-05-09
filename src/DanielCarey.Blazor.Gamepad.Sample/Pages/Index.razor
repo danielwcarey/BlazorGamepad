@@ -64,7 +64,7 @@
     GamepadServiceClient? _gamepadServiceClient = null;
     List<ClientGamepad> Gamepads { get; set; } = new List<ClientGamepad>();
 
-    private TrackingCircuitHandler TrackingCircuitHandler { get; set; }
+    private TrackingCircuitHandler? TrackingCircuitHandler { get; set; } = null;
 
     protected override void OnInitialized() {
         TrackingCircuitHandler = CircuitHandler as TrackingCircuitHandler;

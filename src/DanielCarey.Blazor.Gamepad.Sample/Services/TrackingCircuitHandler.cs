@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace DanielCarey.Blazor.Gamepad.Sample.Services {
     public class TrackingCircuitHandler : CircuitHandler {
         private HashSet<Circuit> _circuits = new HashSet<Circuit>();
-        private readonly IGamePadService _gamePadService;
+        //private readonly IGamePadService _gamePadService;
 
         //public TrackingCircuitHandler(IGamePadService gamePadService) {
         //    _gamePadService = gamePadService;
