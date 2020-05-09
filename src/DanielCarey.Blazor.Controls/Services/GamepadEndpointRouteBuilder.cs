@@ -1,4 +1,4 @@
-﻿namespace DanielCarey.Blazor.Gamepad.Services {
+﻿namespace DanielCarey.Blazor.Controls.Services {
     public class GamepadEndpointRouteBuilder {
         public GamepadEndpointRouteBuilder() {
         }

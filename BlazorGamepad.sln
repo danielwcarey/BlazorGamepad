@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanielCarey.Blazor.Gamepad.Sample", "src\DanielCarey.Blazor.Gamepad.Sample\DanielCarey.Blazor.Gamepad.Sample.csproj", "{53F3ADD2-9052-48AF-A6D0-02C7DBEDE1BB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanielCarey.Blazor.Gamepad", "src\DanielCarey.Blazor.Gamepad\DanielCarey.Blazor.Gamepad.csproj", "{80827E34-5AC7-40C5-A4CA-8DE78F91F25C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanielCarey.Blazor.Controls", "src\DanielCarey.Blazor.Controls\DanielCarey.Blazor.Controls.csproj", "{59414F43-F51D-4D71-85F2-2DF1D85E84D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{53F3ADD2-9052-48AF-A6D0-02C7DBEDE1BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53F3ADD2-9052-48AF-A6D0-02C7DBEDE1BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53F3ADD2-9052-48AF-A6D0-02C7DBEDE1BB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{80827E34-5AC7-40C5-A4CA-8DE78F91F25C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{80827E34-5AC7-40C5-A4CA-8DE78F91F25C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{80827E34-5AC7-40C5-A4CA-8DE78F91F25C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{80827E34-5AC7-40C5-A4CA-8DE78F91F25C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59414F43-F51D-4D71-85F2-2DF1D85E84D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59414F43-F51D-4D71-85F2-2DF1D85E84D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59414F43-F51D-4D71-85F2-2DF1D85E84D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59414F43-F51D-4D71-85F2-2DF1D85E84D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿using DanielCarey.Blazor.Gamepad.Services;
+﻿using DanielCarey.Blazor.Controls.Services;
 using Microsoft.AspNetCore.Components.Server.Circuits;
 using System;
 using System.Collections.Generic;

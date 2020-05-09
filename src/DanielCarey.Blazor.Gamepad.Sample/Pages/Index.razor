@@ -2,58 +2,67 @@
 @using Microsoft.AspNetCore.SignalR.Client
 @using DanielCarey.Blazor.Gamepad.Sample.Services
 @using Microsoft.AspNetCore.Components.Server.Circuits
-@using DanielCarey.Blazor.Gamepad.Services 
+@using DanielCarey.Blazor.Controls.Services
 @inject NavigationManager NavigationManager
 @inject CircuitHandler CircuitHandler
 <h3>Gamepads</h3>
 @foreach (var gamepad in Gamepads) {
-    <div style="border:double 1px black;margin-bottom:.5em;width:auto;">
-        @gamepad.Id
-        <div>@gamepad.ConnectionId</div>
-        @if (gamepad.Buttons.Length > 0) {
-            <table style="border:1px double gray;margin-left:5em;">
-                <thead>
-                    <tr>Buttons</tr>
-                    <tr>
-                        @for (var x = 0; x < gamepad.Buttons.Count(); x++) {
-                            <td style="text-align:center;min-width:2.5em;border:1px dotted gray;">@x</td>
-                        }
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        @foreach (var button in gamepad.Buttons) {
+<div style="border:double 1px black;margin-bottom:.5em;width:auto;">
+    <div>Index:&nbsp;@gamepad.Index</div>
+    <div>@gamepad.Id</div>
+    <div>@gamepad.ConnectionId</div>
+    @if (gamepad.Buttons.Length > 0)
+    {
+        <table style="border:1px double gray;margin-left:5em;">
+            <thead>
+                <tr>Buttons</tr>
+                <tr>
+                    @for (var x = 0; x < gamepad.Buttons.Count(); x++)
+                    {
+                        <td style="text-align:center;min-width:2.5em;border:1px dotted gray;">@x</td>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @foreach (var button in gamepad.Buttons)
+                    {
 
-                            @if (button.Pressed) {
-                                <td style="text-align:center;min-width:2.5em;height:1.5em;border:1px solid black;background-color:lime"></td>
-                            } else {
-                                <td style="text-align:center;min-width:2.5em;height:1.5em;border:1px dotted gray;"></td>
-                            }
+                        @if (button.Pressed)
+                        {
+                            <td style="text-align:center;min-width:2.5em;height:1.5em;border:1px solid black;background-color:lime"></td>
                         }
+                        else
+                        {
+                            <td style="text-align:center;min-width:2.5em;height:1.5em;border:1px dotted gray;"></td>
+                        }
+                    }
 
-                    </tr>
-                </tbody>
-            </table>
-        }
-        @if (gamepad.Axes.Length > 0) {
-            <div style="border:1px double gray;margin-left:5em;">
-                <p>Axes</p>
-                @for (var x = 0; x < gamepad.Axes.Count(); x++) {
-                    <div style="width:5em;text-align:center;min-width:2.5em;border:1px dotted gray;">
-                        @x
-                    </div>
-                    <div style="width:5em;text-align:center;min-width:400px;border:1px dotted gray;">
-                        @gamepad.Axes[x]
-                    </div>
-                }
-            </div>
-        }
-    </div>
+                </tr>
+            </tbody>
+        </table>
+    }
+    @if (gamepad.Axes.Length > 0)
+    {
+        <div style="border:1px double gray;margin-left:5em;">
+            <p>Axes</p>
+            @for (var x = 0; x < gamepad.Axes.Count(); x++)
+            {
+                <div style="width:5em;text-align:center;min-width:2.5em;border:1px dotted gray;">
+                    @x
+                </div>
+                <div style="width:5em;text-align:center;min-width:400px;border:1px dotted gray;">
+                    @gamepad.Axes[x]
+                </div>
+            }
+        </div>
+    }
+</div>
 }
 @code {
 
     GamepadServiceClient? _gamepadServiceClient = null;
-    List<Gamepad> Gamepads { get; set; } = new List<Gamepad>();
+    List<ClientGamepad> Gamepads { get; set; } = new List<ClientGamepad>();
 
     private TrackingCircuitHandler TrackingCircuitHandler { get; set; }
 
@@ -69,7 +78,7 @@
         _gamepadServiceClient.OnUpdate += OnGamepadUpdate;
     }
 
-    void OnGamepadUpdate(object sender, Gamepad[] gamepads) {
+    void OnGamepadUpdate(object sender, ClientGamepad[] gamepads) {
         bool isfound = false;
         foreach(var gpUpdate in gamepads) {
             for(var i = 0; i < Gamepads.Count; i++) {

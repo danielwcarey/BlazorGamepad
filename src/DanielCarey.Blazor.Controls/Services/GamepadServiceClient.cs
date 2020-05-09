@@ -5,9 +5,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace DanielCarey.Blazor.Gamepad.Services {
+namespace DanielCarey.Blazor.Controls.Services {
 
-    public delegate void GamepadClientEventHandler(object sender, Gamepad[] gamepads);
+    public delegate void GamepadClientEventHandler(object sender, ClientGamepad[] gamepads);
     public delegate void GamepadClientJsonEventHandler(object sender, JsonElement[] gamepadElements);
 
     public class GamepadServiceClient : IGamePadService {
@@ -21,7 +21,7 @@ namespace DanielCarey.Blazor.Gamepad.Services {
         }
 
         #region Send events to the hub
-        public Task UpdateAsync(Gamepad[] gamepads) => _hubConnection.SendAsync(nameof(IGamePadService.UpdateAsync), gamepads);
+        public Task UpdateAsync(ClientGamepad[] gamepads) => _hubConnection.SendAsync(nameof(IGamePadService.UpdateAsync), gamepads);
         public Task UpdateJsonAsync(JsonElement[] gamepadElements) => _hubConnection.SendAsync(nameof(IGamePadService.UpdateJsonAsync), gamepadElements);
         public Task AddConnectionAsync(string connectionId) => _hubConnection.SendAsync(nameof(IGamePadService.AddConnectionAsync), connectionId);
         public Task RemoveConnectionAsync(string connectionId) => _hubConnection.SendAsync(nameof(IGamePadService.RemoveConnectionAsync), connectionId);
@@ -30,7 +30,7 @@ namespace DanielCarey.Blazor.Gamepad.Services {
         #region Receive events from the hub
         // Wire the events to the hub connection.
         private void InitEvents() {
-            _hubConnection.On<Gamepad[]>(nameof(IGamePadService.UpdateAsync), (gamepads) => OnUpdate?.Invoke(this, gamepads));
+            _hubConnection.On<ClientGamepad[]>(nameof(IGamePadService.UpdateAsync), (gamepads) => OnUpdate?.Invoke(this, gamepads));
             _hubConnection.On<JsonElement[]>(nameof(IGamePadService.UpdateJsonAsync), (gamepadElements) => OnUpdateJson?.Invoke(this, gamepadElements));
             _hubConnection.On<string>(nameof(IGamePadService.AddConnectionAsync), (connectionId) => OnAddConnection?.Invoke(this, connectionId));
             _hubConnection.On<string>(nameof(IGamePadService.RemoveConnectionAsync), (connectionId) => OnRemoveConnection?.Invoke(this, connectionId));

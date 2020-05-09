@@ -66,7 +66,7 @@ const gamepad_loadScript = (url, callback) => {
 // Need to add a way to configure the server to disable the built-in signalr javascript client (and use a self
 // provded version )
 if (typeof(signalR) === 'undefined') {
-    gamepad_loadScript('/_content/DanielCarey.Blazor.Gamepad/lib/microsoft/signalr/dist/browser/signalr.min.js', gamepad_setupInterop);
+    gamepad_loadScript('/_content/DanielCarey.Blazor.Controls/lib/microsoft/signalr/dist/browser/signalr.min.js', gamepad_setupInterop);
 } else {
     gamepad_setupInterop();
 }

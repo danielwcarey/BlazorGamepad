@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DanielCarey.Blazor.Gamepad\DanielCarey.Blazor.Gamepad.csproj" />
+    <ProjectReference Include="..\DanielCarey.Blazor.Controls\DanielCarey.Blazor.Controls.csproj" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

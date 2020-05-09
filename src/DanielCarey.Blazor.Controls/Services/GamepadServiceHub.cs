@@ -5,21 +5,21 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
-namespace DanielCarey.Blazor.Gamepad.Services {
+namespace DanielCarey.Blazor.Controls.Services {
     public class GamepadServiceHub : Hub<IGamePadService> {
         public static string ChannelName = "gamepad";
 
         public GamepadServiceHub() { }
 
-        public async Task UpdateAsync(Gamepad[] gamepads) {
+        public async Task UpdateAsync(ClientGamepad[] gamepads) {
             await Clients.All.UpdateAsync(gamepads);
         }
 
         public async Task UpdateJsonAsync(JsonElement[] gamepadElements) {
-            var gamepads = new List<Gamepad>();
+            var gamepads = new List<ClientGamepad>();
             foreach (var gamepadElement in gamepadElements) {
                 var rawString = gamepadElement.GetRawText();
-                var gamepad = JsonSerializer.Deserialize<Gamepad>(rawString);
+                var gamepad = JsonSerializer.Deserialize<ClientGamepad>(rawString);
                 gamepads.Add(gamepad);
             }
             await UpdateAsync(gamepads.ToArray());

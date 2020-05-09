@@ -26,7 +26,7 @@ using System.Threading.Tasks;
 // C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\3.1.2\ref\netcoreapp3.1\Microsoft.AspNetCore.SignalR.dll
 #endregion
 
-namespace DanielCarey.Blazor.Gamepad.Services {
+namespace DanielCarey.Blazor.Controls.Services {
     //public static class GamepadEndpointRouteBuilderExtensions {
     //    public static GamepadEndpointRouteBuilder MapGamepadRoute(this IEndpointRouteBuilder endpoints) {
             

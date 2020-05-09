@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DanielCarey.Blazor.Gamepad.Sample.Services;
 using Microsoft.AspNetCore.Components.Server.Circuits;
-using DanielCarey.Blazor.Gamepad.Services;
+using DanielCarey.Blazor.Controls.Services;
 
 namespace DanielCarey.Blazor.Gamepad.Sample {
     public class Startup {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using DanielCarey.Blazor.Gamepad.Services;
+using DanielCarey.Blazor.Controls.Services;
 
 namespace Microsoft.Extensions.DependencyInjection {
     public static class GamepadDependencyInjectionExtensions {
