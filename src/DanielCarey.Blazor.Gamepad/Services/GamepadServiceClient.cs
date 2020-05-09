@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace DanielCarey.Blazor.Gamepad.Sample.Services {
+namespace DanielCarey.Blazor.Gamepad.Services {
 
     public delegate void GamepadClientEventHandler(object sender, Gamepad[] gamepads);
     public delegate void GamepadClientJsonEventHandler(object sender, JsonElement[] gamepadElements);

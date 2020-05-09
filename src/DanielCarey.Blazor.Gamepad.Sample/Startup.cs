@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DanielCarey.Blazor.Gamepad.Sample.Services;
 using Microsoft.AspNetCore.Components.Server.Circuits;
+using DanielCarey.Blazor.Gamepad.Services;
 
 namespace DanielCarey.Blazor.Gamepad.Sample {
     public class Startup {
@@ -48,10 +49,12 @@ namespace DanielCarey.Blazor.Gamepad.Sample {
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapBlazorHub();
-                
+
+                //endpoints.MapHub<object>("test");
+
                 // TODO Need to add gamepad route information
-                endpoints.MapGamepadRoute();
-                //endpoints.MapGamepadRoute(GamepadServiceHub.ChannelName);
+                //endpoints.MapGamepadRoute();
+                endpoints.MapHub<GamepadServiceHub>(GamepadServiceHub.ChannelName);
 
                 endpoints.MapFallbackToPage("/_Host");
             });

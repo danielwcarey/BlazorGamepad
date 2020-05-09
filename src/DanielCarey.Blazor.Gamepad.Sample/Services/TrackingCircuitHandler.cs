@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Server.Circuits;
+﻿using DanielCarey.Blazor.Gamepad.Services;
+using Microsoft.AspNetCore.Components.Server.Circuits;
 using System;
 using System.Collections.Generic;
 using System.Linq;

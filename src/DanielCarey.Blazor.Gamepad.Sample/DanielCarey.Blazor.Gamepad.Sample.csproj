@@ -11,6 +11,10 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DanielCarey.Blazor.Gamepad\DanielCarey.Blazor.Gamepad.csproj" />
+  </ItemGroup>
+
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptTarget>ES2019</TypeScriptTarget>
     <TypeScriptJSXEmit>None</TypeScriptJSXEmit>

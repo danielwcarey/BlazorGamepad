@@ -1,5 +1,4 @@
-﻿
-const setupGamepadInterop = () => {
+﻿const gamepad_setupInterop = () => {
 
     const connection = new signalR.HubConnectionBuilder().withUrl("gamepad").build();
 
@@ -48,4 +47,28 @@ const setupGamepadInterop = () => {
         .catch(err => document.write(err));
 };
 
-setupGamepadInterop();
+const gamepad_loadScript = (url, callback) => {
+    // Adding the script tag to the head as suggested before
+    const head = document.head;
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = url;
+
+    // Then bind the event to the callback function.
+    // There are several events for cross browser compatibility.
+    script.onreadystatechange = callback;
+    script.onload = callback;
+
+    // Fire the loading
+    head.appendChild(script);
+}
+
+// Need to add a way to configure the server to disable the built-in signalr javascript client (and use a self
+// provded version )
+if (typeof(signalR) === 'undefined') {
+    gamepad_loadScript('/_content/DanielCarey.Blazor.Gamepad/lib/microsoft/signalr/dist/browser/signalr.min.js', gamepad_setupInterop);
+} else {
+    gamepad_setupInterop();
+}
+
+
