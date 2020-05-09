@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanielCarey.Blazor.Gamepad.Sample", "src\Sample\DanielCarey.Blazor.Gamepad.Sample.csproj", "{A95490CE-E148-43B0-8565-3F943E7ABD41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanielCarey.Blazor.Gamepad.Sample", "src\DanielCarey.Blazor.Gamepad.Sample\DanielCarey.Blazor.Gamepad.Sample.csproj", "{53F3ADD2-9052-48AF-A6D0-02C7DBEDE1BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A95490CE-E148-43B0-8565-3F943E7ABD41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A95490CE-E148-43B0-8565-3F943E7ABD41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A95490CE-E148-43B0-8565-3F943E7ABD41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A95490CE-E148-43B0-8565-3F943E7ABD41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53F3ADD2-9052-48AF-A6D0-02C7DBEDE1BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53F3ADD2-9052-48AF-A6D0-02C7DBEDE1BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53F3ADD2-9052-48AF-A6D0-02C7DBEDE1BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53F3ADD2-9052-48AF-A6D0-02C7DBEDE1BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
