@@ -1,13 +1,66 @@
 ﻿@using Microsoft.AspNetCore.SignalR.Client
 @using DanielCarey.Blazor.Controls.Services
 @inject NavigationManager NavigationManager
-<h3>GamePad</h3>
-<div>@ClientGamepad?.Id</div>
+@if (ShowDebug) {
+    <div style="border:double 1px black;margin-bottom:.5em;width:auto;">
+        <div>Index:&nbsp;@ClientGamepad?.Index</div>
+        <div>Id:&nbsp;@ClientGamepad?.Id</div>
+        <div>ConnectionId:&nbsp;@ClientGamepad?.ConnectionId</div>
+        <div>Mapping:&nbsp;@ClientGamepad?.Mapping</div>
+        @if (ClientGamepad?.Buttons.Length > 0) {
+            <table style="border:1px double gray;margin-left:5em;">
+                <thead>
+                    <tr>Buttons</tr>
+                    <tr>
+                        @for (var x = 0; x < ClientGamepad?.Buttons.Count(); x++) {
+                            <td style="text-align:center;min-width:2.5em;border:1px dotted gray;">@x</td>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @foreach (var button in ClientGamepad?.Buttons) {
+
+                            @if (button.Pressed) {
+                                <td style="text-align:center;min-width:2.5em;height:1.5em;border:1px solid black;background-color:lime"></td>
+                            } else {
+                                <td style="text-align:center;min-width:2.5em;height:1.5em;border:1px dotted gray;"></td>
+                            }
+                        }
+
+                    </tr>
+                </tbody>
+            </table>
+        }
+        @if (ClientGamepad?.Axes.Length > 0) {
+            <div style="border:1px double gray;margin-left:5em;">
+                <p>Axes</p>
+                @for (var x = 0; x < ClientGamepad?.Axes.Count(); x++) {
+                    <div style="width:5em;text-align:center;min-width:2.5em;border:1px dotted gray;">
+                        @x
+                    </div>
+                    <div style="width:5em;text-align:center;min-width:400px;border:1px dotted gray;">
+                        @ClientGamepad?.Axes[x]
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}
 
 @code {
 
     [Parameter]
     public int Index { get; set; } = 0;
+
+    [Parameter]
+    public bool OnlyNotifyOnChange { get; set; } = false;
+
+    [Parameter]
+    public bool ShowDebug { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<ClientGamepadUpdateArgs> OnClientGamepadUpdate { get; set; }
 
     public ClientGamepad? ClientGamepad { get; set; } = null;
 
@@ -23,12 +76,46 @@
         _gamepadServiceClient.OnUpdate += OnGamepadUpdate;
     }
 
-    void OnGamepadUpdate(object sender, ClientGamepad[] gamepads) {
-
-        ClientGamepad = null;
+    protected void OnGamepadUpdate(object sender, ClientGamepad[] gamepads) {
+        bool canInvokeOnClientGamepadUpdate = false;
 
         if (Index >= 0 && Index < gamepads.Length) {
+
+            var args = new ClientGamepadUpdateArgs {
+                PreviousValue = ClientGamepad,
+                NewValue = gamepads[Index],
+            };
+
             ClientGamepad = gamepads[Index];
+
+            if (
+                OnlyNotifyOnChange == true
+                && args.PreviousValue != null
+                && args.NewValue != null
+                && args.PreviousValue.Id == args.NewValue.Id
+                && args.PreviousValue.ConnectionId == args.NewValue.ConnectionId) {
+
+                for (int x = 0; x < args.PreviousValue.Axes.Length; x++) {
+                    if (args.PreviousValue.Axes[x] != args.NewValue.Axes[x]) {
+                        canInvokeOnClientGamepadUpdate = true;
+                        args.ChangedAxesIndexes.Add(x);
+                    }
+                }
+                for (int x = 0; x < args.PreviousValue.Buttons.Length; x++) {
+                    if (args.PreviousValue.Buttons[x].Value != args.NewValue.Buttons[x].Value) {
+                        canInvokeOnClientGamepadUpdate = true;
+                        args.ChangedButtonIndexes.Add(x);
+                    }
+                }
+
+            } else {
+                canInvokeOnClientGamepadUpdate = true;
+            }
+
+
+            if (canInvokeOnClientGamepadUpdate && OnClientGamepadUpdate.HasDelegate) {
+                OnClientGamepadUpdate.InvokeAsync(args);
+            }
         }
 
         StateHasChanged();
