@@ -1,6 +1,6 @@
 ﻿const gamepad_setupInterop = () => {
 
-    const connection = new signalR.HubConnectionBuilder().withUrl("gamepad").build();
+    const connection = new signalR.HubConnectionBuilder().withUrl("blazorgamepad").build();
 
     const update = () => {
         const gamepads = navigator.getGamepads();

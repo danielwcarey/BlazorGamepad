@@ -4,8 +4,8 @@
     @Index
 </div>
 <div>
-    <button @onclick='@(_ => Index--)'>&lt;</button>
-    <button @onclick='@(_ => Index++)'>&gt;</button>
+    <button @onclick='@MovePrevious'>&lt;</button>
+    <button @onclick='@MoveNext'>&gt;</button>
 </div>
 <div>
     <GamePad Index="@Index" OnClientGamepadUpdate="@ClientGamepadUpdate" ShowDebug="true" OnlyNotifyOnChange="true"></GamePad>
@@ -15,7 +15,17 @@
     [Parameter]
     public int Index { get; set; } = 0;
 
-    private void ClientGamepadUpdate(ClientGamepadUpdateArgs args) {
-        
+    private ClientGamePadUpdateArgs? ClientGamePadInfo { get; set; } = null;
+
+    private void ClientGamepadUpdate(ClientGamePadUpdateArgs args) {
+        ClientGamePadInfo = args;
+        // Processes gamed events.
+    }
+
+    private void MovePrevious() {
+        if (Index > 0) Index--;
+    }
+    private void MoveNext() {
+        if (Index < ClientGamePadInfo?.CurrentGamePadCount - 1) Index++;
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace DanielCarey.Blazor.Controls.Services {
     public class GamepadServiceHub : Hub<IGamePadService> {
-        public static string ChannelName = "gamepad";
+        public static string ChannelName = "blazorgamepad";
 
         public GamepadServiceHub() { }
 

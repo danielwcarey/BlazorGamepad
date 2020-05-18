@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanielCarey.Blazor.Gamepad.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanielCarey.Blazor.Controls", "src\DanielCarey.Blazor.Controls\DanielCarey.Blazor.Controls.csproj", "{59414F43-F51D-4D71-85F2-2DF1D85E84D6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{57EF104D-7A24-480C-B20C-41B3B69E1FA5}"
+	ProjectSection(SolutionItems) = preProject
+		License.md = License.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

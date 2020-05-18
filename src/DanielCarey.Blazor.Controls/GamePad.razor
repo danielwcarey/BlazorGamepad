@@ -50,21 +50,21 @@
 
 @code {
 
-    [Parameter]
-    public int Index { get; set; } = 0;
+        [Parameter]
+        public int Index { get; set; } = 0;
 
-    [Parameter]
-    public bool OnlyNotifyOnChange { get; set; } = true;
+        [Parameter]
+        public bool OnlyNotifyOnChange { get; set; } = true;
 
-    [Parameter]
-    public bool ShowDebug { get; set; } = false;
+        [Parameter]
+        public bool ShowDebug { get; set; } = false;
 
-    [Parameter]
-    public EventCallback<ClientGamepadUpdateArgs> OnClientGamepadUpdate { get; set; }
+        [Parameter]
+        public EventCallback<ClientGamePadUpdateArgs> OnClientGamepadUpdate { get; set; }
 
-    public ClientGamepad? ClientGamepad { get; set; } = null;
-
-    GamepadServiceClient? _gamepadServiceClient = null;
+    private ClientGamepad? ClientGamepad { get; set; } = null;
+    private int GamePadCount { get; set; } = 0;
+    private GamepadServiceClient? _gamepadServiceClient = null;
 
     protected override void OnInitialized() {
         _gamepadServiceClient = new GamepadServiceClient(
@@ -79,43 +79,58 @@
     protected void OnGamepadUpdate(object sender, ClientGamepad[] gamepads) {
         bool canInvokeOnClientGamepadUpdate = false;
 
-        if (Index >= 0 && Index < gamepads.Length) {
+        // Return if the index is out of range
+        if (Index < 0 || Index >= gamepads.Length) {
+            StateHasChanged();
+            return;
+        }
 
-            var args = new ClientGamepadUpdateArgs {
-                PreviousValue = ClientGamepad,
-                NewValue = gamepads[Index],
-            };
+        // Push the current value into PreviousValue and Set CurrentValue
+        var args = new ClientGamePadUpdateArgs {
+            PreviousValue = ClientGamepad,
+            PreviousGamePadCount = GamePadCount,
+            CurrentValue = gamepads[Index],
+            CurrentGamePadCount = gamepads.Length,
+        };
+        ClientGamepad = gamepads[Index];
+        GamePadCount = gamepads.Length;
 
-            ClientGamepad = gamepads[Index];
+        // if this isn't the same input device or signalr channel, return;
+        if (args.PreviousValue == null ||
+            args.PreviousValue.Id != args.CurrentValue.Id ||
+            args.PreviousValue.ConnectionId != args.CurrentValue.ConnectionId) {
+            return;
+        }
 
-            if (
-                OnlyNotifyOnChange == true
-                && args.PreviousValue != null
-                && args.NewValue != null
-                && args.PreviousValue.Id == args.NewValue.Id
-                && args.PreviousValue.ConnectionId == args.NewValue.ConnectionId) {
-
-                for (int x = 0; x < args.PreviousValue.Axes.Length; x++) {
-                    if (args.PreviousValue.Axes[x] != args.NewValue.Axes[x]) {
-                        canInvokeOnClientGamepadUpdate = true;
-                        args.ChangedAxesIndexes.Add(x);
-                    }
+        // Build the argument parameters that list the differencesbetween PreviousValue and CurrentValue
+        if (args.PreviousValue != null && args.PreviousValue.Axes != null) {
+            for (int x = 0; x < args.PreviousValue.Axes.Length; x++) {
+                if (args.PreviousValue.Axes[x] != args.CurrentValue.Axes[x]) {
+                    canInvokeOnClientGamepadUpdate = true;
+                    args.ChangedAxesIndexes.Add(x);
                 }
-                for (int x = 0; x < args.PreviousValue.Buttons.Length; x++) {
-                    if (args.PreviousValue.Buttons[x].Value != args.NewValue.Buttons[x].Value) {
-                        canInvokeOnClientGamepadUpdate = true;
-                        args.ChangedButtonIndexes.Add(x);
-                    }
+            }
+        }
+
+        if (args.PreviousValue != null && args.PreviousValue.Buttons != null) {
+            for (int x = 0; x < args.PreviousValue.Buttons.Length; x++) {
+                if (args.PreviousValue.Buttons[x].Value != args.CurrentValue.Buttons[x].Value) {
+                    canInvokeOnClientGamepadUpdate = true;
+                    args.ChangedButtonIndexes.Add(x);
                 }
-
-            } else {
-                canInvokeOnClientGamepadUpdate = true;
             }
+        }
+
+        if (OnlyNotifyOnChange == true && (args.ChangedAxesIndexes.Count > 0 || args.ChangedButtonIndexes.Count > 0)) {
+            canInvokeOnClientGamepadUpdate = true;
+
+        } else {
+            canInvokeOnClientGamepadUpdate = true;
+        }
 
 
-            if (canInvokeOnClientGamepadUpdate && OnClientGamepadUpdate.HasDelegate) {
-                OnClientGamepadUpdate.InvokeAsync(args);
-            }
+        if (canInvokeOnClientGamepadUpdate && OnClientGamepadUpdate.HasDelegate) {
+            OnClientGamepadUpdate.InvokeAsync(args);
         }
 
         StateHasChanged();
