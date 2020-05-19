@@ -47,7 +47,9 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 Add the component to the page.
 
 ```html
-<GamePad Index="@Index" OnClientGamepadUpdate="@ClientGamepadUpdate" ShowDebug="true" OnlyNotifyOnChange="true"></GamePad>
+<GamePad Index="@Index" OnClientGamepadUpdate="@ClientGamepadUpdate" 
+         ShowDebug="true" OnlyNotifyOnChange="true">
+</GamePad>
 ```
 
 Handle events from the gamepad.
