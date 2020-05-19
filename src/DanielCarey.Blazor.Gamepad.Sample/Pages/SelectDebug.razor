@@ -1,0 +1,29 @@
+﻿@page "/selectdebug"
+@using DanielCarey.Blazor.Controls
+<h3>Select and Debug</h3>
+@if (ShowDebug == false) {
+    <h4>Press a button on the controller to Debug.</h4>
+}
+<GamePad Index="@Index" ShowDebug="@ShowDebug" ProcessAllGamePads="@ProcessAllGamePads" OnClientGamepadUpdate="@ClientGamepadUpdate" OnlyNotifyOnChange="true"></GamePad>
+@code {
+
+    int Index { get; set; } = -1;
+    bool ProcessAllGamePads { get; set; } = true;
+    bool ShowDebug { get; set; } = false;
+
+
+    bool haveSelected { get; set; } = false;
+
+    private void ClientGamepadUpdate(ClientGamePadUpdateArgs args) {
+
+        if (haveSelected) return;
+
+        if(args.ChangedButtonIndexes.Count > 0) {
+            haveSelected = true;
+            Index = args.CurrentValue.Index;
+            ProcessAllGamePads = false;
+            ShowDebug = true;
+        }
+
+    }
+}

@@ -1,7 +1,13 @@
-﻿# DanielCarey.Blazor.Gamepad
+# BlazorGamePad
 
-This component creates a signalr connection from the web browser to asp.net core; then starts
-sending client gamepad information on every requestAnimationFrame().
+This is a component library for using gamepads with blazor. The goal is to expose the Web API, Gamepad API, as a blazor component, or components. 
+You can read more about the [Gamepad API here.]( https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API )
+
+
+
+## Getting Started
+
+### Configuration the project
 
 1. Add this package to a new Blazor Application.
 
@@ -11,7 +17,7 @@ sending client gamepad information on every requestAnimationFrame().
 @using DanielCarey.Blazor.Gamepad.Services
 ```
 
-3. Add the javascript client to _Host.cshtml.
+3. Reference the javascript client code in _Host.cshtml.
 ```html
 <script src="/_content/DanielCarey.Blazor.Gamepad/blazor_gamepad.js"></script>
 ```
@@ -37,3 +43,12 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 }
 ```
 
+### Using the component
+
+The GamePad component has the following properties:
+
+
+1. Add the component to the page
+```html
+<GamePad Index="@Index" OnClientGamepadUpdate="@ClientGamepadUpdate" ShowDebug="true" OnlyNotifyOnChange="true"></GamePad>
+```
