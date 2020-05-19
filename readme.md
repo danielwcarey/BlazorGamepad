@@ -1,8 +1,8 @@
 # BlazorGamePad
 
-This is a component library for using gamepads with blazor. The goal was to learn some of the internals of Blazor but now it might be useful to others and have decided to publish. It is based on the [Gamepad API.]( https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API ) I have only done minimal testing from one computer using Blazor-Server side and have not tested with Blazor Client Side (WASM) nor have I tested it with multiple, gamepad enabled clients.Both these scenarios are TBD (to be done). 
+This is a component library for using gamepads with blazor. The goal was to learn some of the internals of Blazor but now it might be useful to others and have decided to publish. It is based on the [Gamepad API.]( https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API ) I have only done minimal testing from one computer using Blazor-Server side and have not tested with Blazor Client Side (WASM) nor have I tested it with multiple, gamepad enabled clients. Both these scenarios are TBD (to be done). 
 
-The GamePad does contain the signlar connectionid so that we do know, the differences between devices. I do not have a sample with user authentication and gamepad association. Mark that as TBD also.
+The GamePad does contain the signalr connectionid so that we do know, the differences between devices. I do not have a sample with user authentication and gamepad association. Mark that as TBD also.
 
 
 ## Getting Started
