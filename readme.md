@@ -59,7 +59,7 @@ Handle events from the gamepad.
 private void ClientGamepadUpdate(ClientGamePadUpdateArgs args) {
 }
 ```
-See: [ClientGamePadUpdateArgs](/src/DanielCarey.Blazor.Controls/ClientGamePadUpdate.cs)
+See: [ClientGamePadUpdateArgs](/src/DanielCarey.Blazor.Controls/ClientGamepadUpdate.cs)
 
 ## Sample Screenshots
 
