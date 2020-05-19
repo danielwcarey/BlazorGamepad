@@ -1,13 +1,12 @@
 # BlazorGamePad
 
-This is a component library for using gamepads with blazor. The goal is to expose the Web API, Gamepad API, as a blazor component, or components. 
-You can read more about the [Gamepad API here.]( https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API )
+This is a component library for using gamepads with blazor. The goal was to learn some of the internals of Blazor but now it might be useful to others. It is based on the [Gamepad API and you can read more about that here.]( https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API )
 
 
 
 ## Getting Started
 
-### Configuration the project
+### Configuring the project
 
 1. Add this package to a new Blazor Application.
 
@@ -45,10 +44,61 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 
 ### Using the component
 
-The GamePad component has the following properties:
+Add the component to the page.
 
-
-1. Add the component to the page
 ```html
 <GamePad Index="@Index" OnClientGamepadUpdate="@ClientGamepadUpdate" ShowDebug="true" OnlyNotifyOnChange="true"></GamePad>
 ```
+
+Handle events from the gamepad.
+
+```cs
+private void ClientGamepadUpdate(ClientGamePadUpdateArgs args) {
+}
+```
+See: [ClientGamePadUpdateArgs](src/DanielCarey.Blazor.Controls/ClientGamePadUpdate.cs)
+
+## Sample Screenshots
+
+
+### Home Page Iterations
+
+The home page iterates through each gamepad object and displays it's debug ui.
+
+![](docs/Image%201.png)
+
+
+### Component Test: Navigate Previous/Next Gamepads
+
+This shows how to cycle through the attached gamepads using previous and next buttons.
+
+![](docs/Image%202.png)
+
+
+### Press a Button then use that Gamepad
+
+This is an example of asking the user to select the controller they wish to use by selecting a button on that contoller. After the selection, we switch to the debug view for that controller.
+
+![](docs/Image%203.png)
+
+
+![](docs/Image%204.png)
+
+## How it Works
+
+The framework creates a signalr backchannel that pumps gamepad information from the web browser to a signalr gamepad hub, [GamepadServiceHub](/src/DanielCarey.Blazor.Controls/Services/GamepadServiceHub.cs). The GamePad control is also a client to the gamepad hub and receives the update events. 
+
+
+The javascript client is  [blazor_gamepad.js.](/src/DanielCarey.Blazor.Controls/wwwroot/blazor_gamepad.js)
+
+The GamePad component is [GamePad.razor.](/src/DanielCarey.Blazor.Controls/GamePad.razor)
+
+## What's Next?
+* Bug Fixes
+* More Samples
+* Performance Tuning
+* Unit testing ¯\\\_(ツ)_/¯
+
+
+
+
